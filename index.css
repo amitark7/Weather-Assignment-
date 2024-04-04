@@ -126,7 +126,7 @@ body {
 
 .weather-container #description,
 #NotFound #notfoundDesc {
-    font-size: 30px;
+    font-size: 26px;
     margin-bottom: 10px;
 }
 
@@ -163,6 +163,10 @@ body {
         padding: 10px 20px;
     }
 
+    #NotFound #notfoundDesc {
+        font-size: 20px;
+    }
+
     .container nav h1 {
         font-size: 7vw;
     }
@@ -185,7 +189,8 @@ body {
         padding: 4px 4px;
     }
 
-    .container .weather-container {
+    .container .weather-container,
+    .container #NotFound {
         width: 80%;
     }
 
@@ -237,7 +242,7 @@ body {
     }
 
     .container .input-container {
-        width: 60%;
+        width: 43%;
     }
 
     .input-container input {
@@ -251,8 +256,13 @@ body {
         padding: 4px 4px;
     }
 
-    .container .weather-container {
+    .container .weather-container,
+    .container #NotFound {
         width: 40%;
+    }
+
+    #NotFound #notfoundDesc {
+        font-size: 27px;
     }
 
     .weather-container h3 {
@@ -303,7 +313,7 @@ body {
     }
 
     .container .input-container {
-        width: 50%;
+        width: 32%;
     }
 
     .input-container input {
@@ -317,7 +327,8 @@ body {
         padding: 4px 4px;
     }
 
-    .container .weather-container {
+    .container .weather-container,
+    .container #NotFound {
         width: 30%;
     }
 
@@ -369,7 +380,7 @@ body {
     }
 
     .container .input-container {
-        width: 40%;
+        width: 27%;
     }
 
     .input-container input {
@@ -383,7 +394,8 @@ body {
         padding: 4px 4px;
     }
 
-    .container .weather-container {
+    .container .weather-container,
+    .container #NotFound {
         width: 25%;
     }
 
@@ -422,6 +434,10 @@ body {
 }
 
 @media only screen and (min-width:2560px) {
+    .container .input-container {
+        width: 26%;
+    }
+
     .container nav {
         padding: 10px 80px;
     }
@@ -437,7 +453,8 @@ body {
         padding: 4px 4px;
     }
 
-    .container .weather-container {
+    .container .weather-container,
+    .container #NotFound {
         padding: 50px 10px;
     }
 

@@ -1,11 +1,12 @@
 let inputBox = document.getElementById("input-box");
-let Loader = document.getElementById("loader");
 let searchButton = document.getElementById("search-button");
 let isLocation = document.getElementById("location-available");
 let container = document.getElementById("weather-box");
 let description = document.getElementById("description");
 let loader = false;
 let cityName = "";
+const APIKEY = "82005d27a116c2880c8f0fcb866998a0";
+const BASEURL = "http://api.openweathermap.org";
 
 //handle search button on keypress enter
 inputBox.addEventListener("keydown", function (e) {
@@ -26,7 +27,7 @@ const fetchData = async (city) => {
 
   //Find latitude and longitude base on the city name
   const data = await fetch(
-    `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=${5}&appid=${`82005d27a116c2880c8f0fcb866998a0`}`
+    `${BASEURL}/geo/1.0/direct?q=${city}&limit=${5}&appid=${APIKEY}`
   );
   const jsonData = await data.json();
 
@@ -34,23 +35,27 @@ const fetchData = async (city) => {
   if (jsonData.length > 0) {
     const latitute = jsonData[0].lat;
     const longitude = jsonData[0].lon;
-    const details =
-      await fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${latitute}&lon=${longitude}&appid=${`82005d27a116c2880c8f0fcb866998a0`}
+    const weatherDetails =
+      await fetch(`${BASEURL}/data/2.5/weather?lat=${latitute}&lon=${longitude}&appid=${APIKEY}
       `);
-    const weatherValue = await details.json();
-    if (weatherValue) {
+    const weatherDetailsJson = await weatherDetails.json();
+    if (weatherDetailsJson) {
       //When fetching complete then false loader
       loader = false;
       isLoader();
 
       //Pass weather details in UpdateDom Function
-      updateDom(weatherValue);
+      updateWeatherDetails(weatherDetailsJson);
     }
   } else {
     //also location not find then loader false and update on webpages
     loader = false;
     isLoader();
+
+    //Weather-container hide when city not found
     container.style.display = "none";
+
+    //Not found container show when city not found and update details
     document.getElementById("NotFound").style.display = "block";
     document.getElementById("notFoundImg").src = "/assets/unknown.png";
     document.getElementById("notfoundDesc").innerText = "Oops city not found.";
@@ -75,11 +80,16 @@ const searchClick = async () => {
 };
 
 //Update element on weatherdetails
-const updateDom = (details) => {
+const updateWeatherDetails = (details) => {
   cityName = cityName.length === 0 ? details.name : inputBox.value;
+
+  //Weather container display block when start updating value
   container.style.display = "block";
+
+  //Not Found Box display hide
   document.getElementById("NotFound").style.display = "none";
 
+  //Update icon accroding to recieve icon
   document.getElementById(
     "weatherImg"
   ).src = `./assets/${details.weather[0].icon}.png`;
@@ -138,8 +148,11 @@ if ("geolocation" in navigator) {
 
 //If location not found update on webpages
 function geolocationError() {
-  isLocation.style.display = "block";
-  isLocation.innerText = "*Current location not available*";
+  container.style.display = "none";
+  document.getElementById("NotFound").style.display = "block";
+  document.getElementById("notFoundImg").src = "/assets/unknown.png";
+  document.getElementById("notfoundDesc").innerText =
+    "Current location not found.";
 }
 
 //To find latitude and longitude of current location
