@@ -89,6 +89,7 @@ const searchClick = async () => {
 
 //Update element on weatherdetails
 const updateWeatherDetails = (details) => {
+  console.log(details);
   cityName = cityName.length === 0 ? details.name : inputBox.value;
 
   //Weather container display block when start updating value
@@ -119,15 +120,9 @@ const updateWeatherDetails = (details) => {
   document.getElementById("wind").innerText = `${details.wind.speed}km/hr`;
 
   //update background image on basis of weather condition
-  const imagesObject = {
-    Clouds: "url('/assets/cloudBg.png')",
-    Clear: "url('/assets/clearBG.webp')",
-    Rain: "url('/assets/rainBg.jpg')",
-    Mist: "url('/assets/cloudBg.png')",
-    Snow: "url('/assets/snowBg.jpg')",
-    Haze: "url('/assets/clearBG.webp')",
-  };
-  document.body.style.backgroundImage = imagesObject[details.weather[0].main];
+  document.body.style.backgroundImage = `url(
+    ./assets/${details.weather[0].main}.jpg
+  )`;
   //After click input box clear
   inputBox.value = "";
 };
