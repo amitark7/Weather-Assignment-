@@ -118,27 +118,16 @@ const updateWeatherDetails = (details) => {
   document.getElementById("humidity").innerText = `${details.main.humidity}%`;
   document.getElementById("wind").innerText = `${details.wind.speed}km/hr`;
 
-  //update image and background image on basis of weather condition
-  switch (details.weather[0].main) {
-    case "Clouds":
-      document.body.style.backgroundImage = "url('/assets/cloudBg.png')";
-      break;
-    case "Clear":
-      document.body.style.backgroundImage = "url('/assets/clearBG.webp')";
-      break;
-    case "Rain":
-      document.body.style.backgroundImage = "url('/assets/rainBg.jpg')";
-      break;
-    case "Mist":
-      document.body.style.backgroundImage = "url('/assets/cloudBg.png')";
-      break;
-    case "Snow":
-      document.body.style.backgroundImage = "url('/assets/snowBg.jpg')";
-    case "Haze":
-      document.body.style.backgroundImage = "url('/assets/clearBG.webp')";
-      break;
-  }
-
+  //update background image on basis of weather condition
+  const imagesObject = {
+    Clouds: "url('/assets/cloudBg.png')",
+    Clear: "url('/assets/clearBG.webp')",
+    Rain: "url('/assets/rainBg.jpg')",
+    Mist: "url('/assets/cloudBg.png')",
+    Snow: "url('/assets/snowBg.jpg')",
+    Haze: "url('/assets/clearBG.webp')",
+  };
+  document.body.style.backgroundImage = imagesObject[details.weather[0].main];
   //After click input box clear
   inputBox.value = "";
 };
